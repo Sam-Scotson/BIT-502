@@ -1,5 +1,3 @@
-#++BIT 502 Ass1++
-
 def cal_bmi():
     """
     simple bmi calculation for new customers
