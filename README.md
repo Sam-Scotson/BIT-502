@@ -1,4 +1,4 @@
-<h1>Introduction
+#Introduction
 
 In this assessment, you will develop a Python console application, and design and develop a
 prototype of a user interface design. 
@@ -10,7 +10,7 @@ You need to submit your assessment in two files: the report as an MS Word file a
 Python code file as a zip file.
 Read the following case study and complete the tasks.
 
-<h1>Case study
+#Case study
 
 City Gym has been in business for two years and is seeing a steady increase in the number of
 members. The gym offers its members access to a standard range of exercise equipment
