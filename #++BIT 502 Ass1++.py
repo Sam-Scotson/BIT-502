@@ -1,6 +1,4 @@
 import time as t
-import sys
-
 def cal_bmi():
     '''
     simple bmi calculation for new customers
@@ -11,6 +9,7 @@ def cal_bmi():
     print('---Enter 2 to go back to the main menu---')
     print('--------------------------------------------------------------')
     start = input('')
+
     def bmi_input():
         global input_weight_float, input_height_float
         if start == '1':
@@ -21,7 +20,7 @@ def cal_bmi():
                 print('We will now ask you to enter a series of body stats')
                 print('--------------------------------------------------------------')
                 t.sleep(2)
-                print('Please enter numbers, either whole i.e 10 or a decimal i.e 10.55')
+                print('Please enter numbers, either whole i.e 10 or decimal i.e 10.55')
                 print('--------------------------------------------------------------')
                 t.sleep(2)
                 print('Enter 2 at any time to go back to the main menu')
@@ -57,6 +56,7 @@ def cal_bmi():
         else:
             print('!Incorrct input, please try again!')
             bmi_input()
+
     bmi_input()
     bmi_height = input_height_float * input_height_float
     bmi = input_weight_float / bmi_height 
@@ -105,12 +105,13 @@ def membership_rate():
         selection = input('')
         if selection == 'back to the main menu':
             main_menu()
-        mem_selection = mem_menu[selection]
+        else:
+            selection_int = int(selection)
+        mem_selection = mem_menu[selection_int]
     except KeyError as e:
         print('Incorect input please try again i.e 1,2,3')
         membership_rate()
 
-        
     yield(mem_selection)
     main_menu()
 
@@ -118,6 +119,7 @@ def exit():
     '''
     Simple python script exit
     '''
+    
     print('--------------------------------------------------------------')
     print('Enter any key to exit the application')
     print('--------------------------------------------------------------')
@@ -125,6 +127,7 @@ def exit():
     exit1 = bool(exit)
 
     if exit1 == True:
+        import sys
         sys.exit()
 
 def main_menu():
@@ -158,18 +161,18 @@ def main_menu():
         print('--------------------------------------------------------------')
         input_check()
 
-        #if option == int:
-        #    option_int = int(option)
-        #elif option != int:
-        #    print('Invalid option, Please enter number assocatited with option')
-        #    menu_selection()
+        '''if option == int:
+            option_int = int(option)
+        elif option != int:
+            print('Invalid option, Please enter number assocatited with option')
+            menu_selection()'''
         
         try:
-            if main_option_int == 1:
-                bmi_resault = cal_bmi()
-            elif main_option_int == 2:
+            if main_option_int == '1':
+                cal_bmi()
+            elif main_option_int == '2':
                 membership_rate()
-            elif main_option_int == 3:
+            elif main_option_int == '3':
                 exit()
             else:
                 print('Invalid option, Please enter number assocatited with option')
@@ -177,7 +180,6 @@ def main_menu():
         except KeyError as e:
             print('Incorrect input, please enter an option number')
             menu_selection()
-
     print('--------------------------------------------------------------')
     print('        -- Welcome to the City Gym App main menu! --')
     print('--------------------------------------------------------------')
