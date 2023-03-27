@@ -1,5 +1,6 @@
 import time as t
 def cal_bmi():
+    global start
     '''
     simple bmi calculation for new customers
     bmi=weight/height**2
@@ -16,16 +17,16 @@ def cal_bmi():
             try:
                 print('Welcome to the City Gym Body Mass Index (BMI) calculator')
                 print('--------------------------------------------------------------')
-                t.sleep(2)
+                t.sleep(1)
                 print('We will now ask you to enter a series of body stats')
                 print('--------------------------------------------------------------')
-                t.sleep(2)
+                t.sleep(1)
                 print('Please enter numbers, either whole i.e 10 or decimal i.e 10.55')
                 print('--------------------------------------------------------------')
-                t.sleep(2)
+                t.sleep(1)
                 print('Enter 2 at any time to go back to the main menu')
                 print('--------------------------------------------------------------')
-                t.sleep(2)
+                t.sleep(1)
                 print('--------------------------------------------------------------')
                 print('Enter your weight in Kgs')
                 print('--------------------------------------------------------------')
@@ -38,7 +39,7 @@ def cal_bmi():
                     print('--------------------------------------------------------------')
                     t.sleep(1)
                     input_height_str = input('')
-                if input_height_str == 2:
+                if input_height_str == '2':
                     main_menu()
                 else:
                     input_weight_float = float(input_weight_str)
@@ -51,7 +52,7 @@ def cal_bmi():
                 print('--------------------------------------------------------------')
                 t.sleep(1)
                 bmi_input()
-        elif start == 2:
+        elif start == '2':
                 main_menu()
         else:
             print('!Incorrct input, please try again!')
@@ -75,9 +76,11 @@ def cal_bmi():
             cal_bmi()
     str_bmi = str(bmi)
     print('Your BMI is ' + str_bmi)
+    t.sleep(1)
     print('You are classed as ' + bmi_result)
-    yield(bmi_result)
+    t.sleep(1)
     print('Loading main menu...')
+    t.sleep(1)
     main_menu()
     
 def membership_rate():
@@ -95,24 +98,31 @@ def membership_rate():
         '4' : back
     }
     print('City Gym membership rates')
+    t.sleep(1)
     print('--------------------------------------------------------------')
+    t.sleep(1)
     for key, value in mem_menu.items():
         print(key, ' -- ', value)
+    t.sleep(1)
     print('--------------------------------------------------------------')
+    t.sleep(1)
     print('Please select a membership option from the above')
+    t.sleep(1)
+    print('*all rates are gst inclusive')
     
     try:
         selection = input('')
         if selection == 'back to the main menu':
             main_menu()
         else:
-            selection_int = int(selection)
-        mem_selection = mem_menu[selection_int]
+            selection_str = mem_menu[selection]
     except KeyError as e:
         print('Incorect input please try again i.e 1,2,3')
         membership_rate()
-
-    yield(mem_selection)
+    print(selection_str)
+    t.sleep(1)
+    print('Loading main menu...')
+    t.sleep(1)
     main_menu()
 
 def exit():
@@ -144,35 +154,19 @@ def main_menu():
         '''
         Prints the app function menu, runs logic for selection
         '''
-        def input_check():
-            '''
-            Input for menu selection plus error check 
-            '''
-            global main_option_int
-            main_option_str = input('')
-            try:
-                main_option_int = int(main_option_str)
-            except ValueError as e:
-                print('Invalid value, Please enter an integer')
-                input_check()
+        
         print('--------------------------------------------------------------')
         for key, value in menu.items():
             print(key, ' -- ', value)
         print('--------------------------------------------------------------')
-        input_check()
-
-        '''if option == int:
-            option_int = int(option)
-        elif option != int:
-            print('Invalid option, Please enter number assocatited with option')
-            menu_selection()'''
         
         try:
-            if main_option_int == '1':
+            main_option_str = input('')
+            if main_option_str == '1':
                 cal_bmi()
-            elif main_option_int == '2':
+            elif main_option_str == '2':
                 membership_rate()
-            elif main_option_int == '3':
+            elif main_option_str == '3':
                 exit()
             else:
                 print('Invalid option, Please enter number assocatited with option')
@@ -183,7 +177,9 @@ def main_menu():
     print('--------------------------------------------------------------')
     print('        -- Welcome to the City Gym App main menu! --')
     print('--------------------------------------------------------------')
-    while (True):
-        menu_selection()
+    t.sleep(1)
+    print('please select one of the following options')
+    t.sleep(1)
+    menu_selection()
 
 main_menu()
