@@ -28,5 +28,5 @@ name = input("Enter your name: ")
 print("Hi " + name)
 while c <3:
     hello_display()
-    count = count + 1
+    c = c + 1
 print("Bye for now!")
