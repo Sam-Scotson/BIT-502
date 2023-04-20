@@ -3,6 +3,9 @@ Pizza App Ex BIT502
 '''
 global pizza_id
 pizza_id = 23456
+import os
+import time as t
+clear = lambda: os.system('cls')
 
 class Pizza:
 
@@ -13,7 +16,6 @@ class Pizza:
         self.size = pizza_size
 
     def eat_pizza(self):
-        import time as t
         pizzaSlicesLeft = 8
         while pizzaSlicesLeft > 0:
             print("Yummy!!!!")
@@ -24,20 +26,24 @@ class Pizza:
 
 def order_input(pizzaFlavs, pizzaType, pizzaSize):
     global pizza_name, pizza_type, pizza_size
+    t.sleep(2)
+    clear()
     print('please select pizza flavour from the following')
     for flavs in pizzaFlavs:
         print(flavs)
     pizza_pick = int(input('select a number from the above i.e 1 or 2'))
     pizza_name = pizzaFlavs[pizza_pick-1]
     print('Great choice!')
-
+    t.sleep(2)
+    clear()
     print('Select a type of pizza from the following')
     for types in pizzaType:
         print(types)
     type_pick = int(input('select a number from the above i.e 1 or 2'))
     pizza_type = pizzaType[type_pick-1]
     print('Gothcha!')
-
+    t.sleep(2)
+    clear()
     print('Select a pizza size from the following')
     for sizes in pizzaSize:
         print(sizes)
@@ -52,7 +58,7 @@ def make_pizza(pizza_name, pizza_type, pizza_size):
     return(pizzaPie)
 
 def main():
-    
+
     pizzaFlavs = ['1)-Meat_lovers $30', '2)-Margherita $25', '3)-Italian $20', '4)-Veggie lovers $30', '5)-Classic veggie $25']
     pizzaType = ['1)-Standard', '2)-Vegetarian $2', '3)-Gluten-free $5']
     pizzaSize = ['1)-Small', '2)-Medium $5', '3)-Large $10']
@@ -60,6 +66,7 @@ def main():
     cust_name = input('Please enter your name for order')
     order_input(pizzaFlavs, pizzaType, pizzaSize)
     print('Thanks for that '+cust_name+'!')
+    clear()
     print('Making your pizza now! =)')
     make_pizza(pizza_name, pizza_type, pizza_size)
     print('all done!')
