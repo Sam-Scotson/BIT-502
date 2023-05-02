@@ -1,11 +1,8 @@
 #//////////////////////////////////////////////////////////
+import pymysql
 from guizero import App, Window, Text, Box, CheckBox, ListBox, PushButton, Picture, TextBox, Slider, ButtonGroup
 #//////////////////////////////////////////////////
-#Header title
-app = App(title="City Gym", height=1200, width=400, layout="auto")
-picture = Picture(app, image="citygymlogo.png", grid=[1,0])
-text = Text(app, text="City Gym", grid=[1,1])
-text = Text(app, text="Membership Form", grid=[1,2])
+#Custom Functions
 def open_window():
     window.show()
 def close_window():
@@ -13,16 +10,41 @@ def close_window():
 def exit_citygym():
     import sys
     sys.exit()
+def send_customer_info():
+    '''
+    Example mysql query, for demonstrative purposes only
+    '''
+    infolist = [textboxFirst], [textboxLast], [textboxAddress], [textboxNumber]
+    conn = pymysql.connect(host= "server",
+                       user="user",
+                       passwd="pw",
+                       db="db",
+                       charset='utf8')
+    query = "UPDATE new_customer SET first_name= '{infoList[0]}', last_name='{infoList[1]}', Address='{infoList[2]}' WHERE displayName='{infoList[3]}'"
+    conn.ping()
+    x = conn.cursor()
+    x.execute(query)
+
+'''def total_count():
+    global 
+    def'''
+#/////////////////////////////////////////////////////
+#Header title
+app = App(title="City Gym", height=1200, width=500, layout="auto")
+picture = Picture(app, image="citygymlogo.png", grid=[1,0])
+text = Text(app, text="City Gym", grid=[1,1])
+text = Text(app, text="Membership Form", grid=[1,2])
 #////////////////////////////////////////////////
 
 #//////////////////////////////////////////////////////
 #Customer inputs
 text = Text(app, text="", grid=[1,3])
 text = Text(app, text="CUSTOMER DETAILS", grid=[1,4])
-textbox = TextBox(app, text="First name", grid=[1,5], width=20)
-textbox = TextBox(app, text="Last name", grid=[1,6], width=20)
-textbox = TextBox(app, text="Address", grid=[1,7], width=20)
-textbox =TextBox(app, text="Mobile number", grid=[1,8], width=20)
+global textboxFirst, textboxLast, textboxAddress, textboxNumber
+textboxFirst = TextBox(app, text="First name", grid=[1,5], width=20)
+textboxLast = TextBox(app, text="Last name", grid=[1,6], width=20)
+textboxAddress = TextBox(app, text="Address", grid=[1,7], width=20)
+textboxNumber =TextBox(app, text="Mobile number", grid=[1,8], width=20)
 
 #///////////////////////////////////////////////////
 #Memebership buttons
@@ -73,7 +95,8 @@ text = Text(window, text="", grid=[1,8])
 text = Text(window, text="PAYMENT TOTAL", grid=[1,9])
 text = Text(window, text="", grid=[1,10])
 listbox = ListBox(window, items=['place holder'], grid=[1,11])
-close_button = PushButton(window, text="Close", command=close_window, grid=[1,12])
-exit_button = PushButton(window, text="Exit", command=exit_citygym, grid=[1,13])
+cal_button = PushButton(window, text="Calculate Membership")
+exit_button = PushButton(window, text="Submit and Exit", command=send_customer_info(), command=exit_citygym, grid=[1,13])
+close_button = PushButton(window, text="Close Window", command=close_window, grid=[1,13])
 
 app.display() 
