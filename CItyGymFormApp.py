@@ -317,7 +317,7 @@ def gym_app():
     text = Text(app, text="", grid=[1,27])
     listbox = ListBox(app, items=['place holder'], grid=[1,28])
     cal_button = PushButton(app, text="Calculate Membership", command=calculate_button(), grid=[1,29])
-    exit_button = PushButton(app, text="Submit and Exit", command=send_customer_info(), command=exit_citygym, grid=[1,30])
+    exit_button = PushButton(app, text="Submit and Exit", command=send_customer_info(), command=exit_citygym(), grid=[1,30])
 #///////////////////////////////////////////////////////////
 #Start
     app.display()
