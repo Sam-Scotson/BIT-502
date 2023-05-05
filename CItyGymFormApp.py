@@ -6,14 +6,22 @@ global button1, button2, button3, button4, button5, button6, infoList, textboxFi
 #Custom Functions
 def exit_citygym():
     '''
-    placeholdedr
+     a simple sys based fucntion to exit the app
+    Args:
+     none   
+    Returns:
+     none
     '''
     import sys
     sys.exit()
 
 def mem_type_10():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not Basic $10pw is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "Basic $10pw" in infoList:
         pass
@@ -26,7 +34,11 @@ def mem_type_10():
 
 def mem_type_15():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not Regular $15pw is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "Basic $10pw" in infoList:
         pass
@@ -39,7 +51,11 @@ def mem_type_15():
 
 def mem_type_20():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not Premium $20pw is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "Basic $10pw" in infoList:
         pass
@@ -52,7 +68,11 @@ def mem_type_20():
 
 def mem_dur_3():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not 3 Months is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "3 Months" in infoList:
         pass
@@ -65,7 +85,11 @@ def mem_dur_3():
 
 def mem_dur_12():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not 12 Months is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "3 Months" in infoList:
         pass
@@ -78,7 +102,11 @@ def mem_dur_12():
 
 def mem_dur_24():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not 24 Months is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "3 Months" in infoList:
         pass
@@ -91,7 +119,11 @@ def mem_dur_24():
 
 def direct_credit():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not yes or no is added to infoList dependent on switch postion
+    Args:
+     none
+    Returns:
+     none
     '''
     if "Yes" in infoList:
         pass
@@ -102,7 +134,11 @@ def direct_credit():
 
 def frq_payment():
     '''
-    placeholdedr
+     checks if any of the options are already selected, if so the function passes, if not Weekly of Monthly is added to infoList
+    Args:
+     none
+    Returns:
+     none
     '''
     if "Weekly" in infoList:
         pass
@@ -113,7 +149,12 @@ def frq_payment():
 
 def extras_24():
     '''
-    placeholdedr
+     checks what the value of the checkbox is 1 or 0 and adds or subtracts 27/7 access to the infoList
+     none
+    Args:
+     none
+    Returns:
+     none
     '''
     if checkBox1.value == 1:
         infoList += [checkBox1.text]
@@ -122,7 +163,12 @@ def extras_24():
 
 def extras_trainer():
     '''
-    placeholdedr
+     checks what the value of the checkbox is 1 or 0 and adds or subtracts trainer access to the infoList
+     none
+    Args:
+     none
+    Returns:
+     none
     '''
     if checkBox2.value == 1:
         infoList += [checkBox2.text]
@@ -131,7 +177,12 @@ def extras_trainer():
 
 def extras_diet():
     '''
-    placeholdedr
+     checks what the value of the checkbox is 1 or 0 and adds or subtracts diet consultation to the infoList
+     none
+    Args:
+     none
+    Returns:
+     none
     '''
     if checkBox3.value == 1:
         infoList += [checkBox3.text]
@@ -140,7 +191,12 @@ def extras_diet():
 
 def extras_videos():
     '''
-    placeholdedr
+     checks what the value of the checkbox is 1 or 0 and adds or subtracts video access to the infoList
+     none
+    Args:
+     none
+    Returns:
+     none
     '''
     if checkBox4.value == 1:
         infoList += [checkBox4.text]
@@ -148,6 +204,13 @@ def extras_videos():
         infoList -= [checkBox4.text] 
 
 def calculate_button():
+    '''
+     a collection of fuctions to calculate the total payment, lists varibles of options and executes functions
+    Args:
+     none
+    Returns:
+     the regular payment data
+    '''
     basic = 10
     regular = 15
     premium = 20
@@ -157,11 +220,18 @@ def calculate_button():
     videos = 2
     perWeek = baseMem + durMem
     regularPay = None
-    def base_mem():
+    baseMem = None
+    durMem = None
+
+    def base_mem(baseMem):
         '''
-        placeholdedr
+        sub-function checks what the value of the checkbox is 1 or 0 and adds or subtracts video access to the infoList
+         none
+        Args:
+         baseMem
+        Returns:
+         none
         '''
-        baseMem = None
         if "Basic $10pw" in infoList:
             baseMem = basic
         elif "Regular $15pw" in infoList:
@@ -172,11 +242,10 @@ def calculate_button():
             print('error, restarting app')
             gym_app()
 
-    def dur_mem():
+    def dur_mem(durMem):
         '''
-        placehold
+        sub-function checks what the value of the checkbox is 1 or 0 and adds or subtracts 
         '''
-        durMem = None
         if "3 Months" in infoList:
             pass
         elif "12 Months" in infoList:
@@ -237,11 +306,12 @@ def send_customer_info():
     conn.ping()
     x = conn.cursor()
     x.execute(query)
+
 #/////////////////////////////////////////////////////
 #Header title
 def gym_app():
     '''
-    comment
+    
     '''
     app = App(title="City Gym", height=1200, width=500, layout="auto")
     picture = Picture(app, image="citygymlogo.png", grid=[1,0])
@@ -308,16 +378,17 @@ def gym_app():
 #Extras
     text = Text(app, text="", grid=[1,21])
     text = Text(app, text="EXTRAS", grid=[1,22])
+    text = Text(app, )
     checkBox1 = CheckBox(app, text="24/7 Access/$1pw", command=extras_24(), grid=[1,23])
     checkBox2 = CheckBox(app, text="Personal Trainer/$20pw", command=extras_trainer(), grid=[1,24])
     checkBox3 = CheckBox(app, text="Diet Consultation/$20pw", command=extras_diet(), grid=[1,25])
     checkBox4 = CheckBox(app, text="Online Fitness Videos/$2pw", command=extras_videos(), grid=[1,26])
     text = Text(app, text="", grid=[1,27])
     text = Text(app, text="PAYMENT TOTAL", grid=[1,26])
-    text = Text(app, text="", grid=[1,27])
-    listbox = ListBox(app, items=['place holder'], grid=[1,28])
-    cal_button = PushButton(app, text="Calculate Membership", command=calculate_button(), grid=[1,29])
-    exit_button = PushButton(app, text="Submit and Exit", command=send_customer_info(), command=exit_citygym(), grid=[1,30])
+    text = Text(app, text="", grid=[1,28])
+    listbox = ListBox(app, items=['place holder'], grid=[1,29])
+    cal_button = PushButton(app, text="Calculate Membership", command=calculate_button(), grid=[1,30])
+    exit_button = PushButton(app, text="Submit and Exit", command=send_customer_info(), command=exit_citygym(), grid=[1,31])
 #///////////////////////////////////////////////////////////
 #Start
     app.display()
