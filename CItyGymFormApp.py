@@ -225,8 +225,7 @@ def calculate_button():
 
     def base_mem(baseMem):
         '''
-        sub-function checks what the value of the checkbox is 1 or 0 and adds or subtracts video access to the infoList
-         none
+         sub-function checks which membership is in the infoList and charges the assocecatied to a varible to be calculated later 
         Args:
          baseMem
         Returns:
@@ -244,7 +243,11 @@ def calculate_button():
 
     def dur_mem(durMem):
         '''
-        sub-function checks what the value of the checkbox is 1 or 0 and adds or subtracts 
+         sub-function checks which membership is in the infoList and charges the assocecatied to a varible to be calculated later 
+        Args:
+         durMem
+        Returns:
+         none
         '''
         if "3 Months" in infoList:
             pass
@@ -256,24 +259,45 @@ def calculate_button():
             print('error, restarting app')
             gym_app()
     
-    def extra_mem():
+    def extra_mem(perWeek):
+        '''
+         sub-function checks which of the extra options if any are in infoList and adds the asscoitated options varible to the total  
+        Args:
+         perWeek
+        Returns:
+         none
+        '''
         if [checkBox1.text] in infoList:
-            total += access24
+            perWeek += access24
         elif [checkBox2.text] in infoList:
-            total += trainer
+            perWeek += trainer
         elif [checkBox3.text] in infoList:
-            total += diet
+            perWeek += diet
         elif [checkBox4.text] in infoList:
-            total += videos
+            perWeek += videos
 
-    def pay_mem():
+    def pay_mem(baseMem, infoList):
+        '''
+         sub-function checks if either yes or no for direct payment and subtracts a 1% discount from total
+        Args:
+         baseMem & infoList
+        Returns:
+         none
+        '''
         if "Yes" in infoList:
             discount = 1 * baseMem/100
             baseMem - discount
         elif "No" in infoList:
             pass
 
-    def frq_mem():
+    def frq_mem(perWeek,regularPay,infoList):
+        '''
+         sub-function checks if either weekly or monthly are selected from the infoList and adjusts the regular payment
+        Args:
+         perWeek,regularPay,infoList
+        Returns:
+         none
+        '''
         if "Weekly" in infoList:
             regularPay = perWeek
             infoList += regularPay
@@ -296,6 +320,7 @@ def text_output_customer_info():
 def send_customer_info():
     '''
     Example mysql query, for demonstrative purposes only
+    
     '''
     conn = pymysql.connect(host= "server",
                        user="user",
