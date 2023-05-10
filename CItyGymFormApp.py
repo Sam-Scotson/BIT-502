@@ -26,7 +26,7 @@ def gym_app():
     textboxFirst = TextBox(app, text="First name", grid=[1,5], width=20)
     textboxLast = TextBox(app, text="Last name", grid=[1,6], width=20)
     textboxAddress = TextBox(app, text="Address", grid=[1,7], width=20)
-    textboxNumber =TextBox(app, text="Mobile number", grid=[1,8], width=20)
+    textboxNumber = TextBox(app, text="Mobile number", grid=[1,8], width=20)
 
     global button
     button = PushButton(app, text="Enter", grid=[1,9])
@@ -42,7 +42,7 @@ def gym_app():
             pass
         elif "Last name" in infoList:
             pass
-        elif "Addres" in infoList:
+        elif "Address" in infoList:
             pass
         elif "Mobile number" in infoList:
             pass
