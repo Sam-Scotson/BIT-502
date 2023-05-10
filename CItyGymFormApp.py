@@ -55,6 +55,7 @@ def gym_app():
             "Mobile Number: " + str(textboxNumber.value),
             ])     
         button.hide
+        thxText = Text(app, text="Thank you!", grid=[1,9])
     button.when_clicked = personal_info()
 
     text5 = Text(app, text="", grid=[1,10])
