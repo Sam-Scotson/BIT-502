@@ -414,9 +414,9 @@ def gym_app():
             regularPay
             '''
             if "Frequecncy of Payments: Weekly" in infoList:
-                regularPay = perWeek
+                regularPay = exPerWeek
             elif "Frequecncy of Payments: Monthly" in infoList:
-                regularPay = perWeek * 4
+                regularPay = exPerWeek * 4
             return(regularPay)
 
         global baseMem, durMem, disMem
@@ -426,9 +426,11 @@ def gym_app():
         global perWeek
         perWeek = (baseMem - disMem) + durMem
         #//////////////START FROM HER///////////////
-        extra_mem(perWeek)
+        exPerWeek = extra_mem(perWeek)
         global regularPay1
-        regularPay1 = frq_mem(exPerWeek)  
+        regularPay1 = frq_mem(exPerWeek)
+        infoList.append(str(regularPay1))  
+        return(infoList)
     cal_button.when_clicked = calculate_button(infoList)
 
     download_button = PushButton(app, text="Download details", grid=[1,33])
@@ -460,7 +462,7 @@ def gym_app():
                         passwd="pw",
                         db="db",
                         charset='utf8')
-        query = "UPDATE new_customer SET first_name= '{infoList[0]}', last_name='{infoList[1]}', Address='{infoList[2]}' WHERE displayName='{infoList[3]}'"
+        query = f"UPDATE new_customer SET first_name= {infoList[1]}, last_name='{infoList[2]}', Address='{infoList[3]}', Mobile_number='{infoList[4]}', Regular_payments='{}"
         conn.ping()
         x = conn.cursor()
         x.execute(query)
@@ -468,7 +470,6 @@ def gym_app():
         sys.exit()
 
     exit_button.when_clicked = send_customer_info()
-    exit_button.when_clicked = exit_citygym()
 
     app.display() 
 
@@ -476,7 +477,7 @@ gym_app()
 
 #////////////DEBUG KIT//////////////////
 import os
-os.chdir(f'C:/Users/Sam/Documents/OpenPoly/BIT502Ass2')
+os.chdir(f'C:/Users/eastt/OneDrive/Documents/OpenPoly/502')
 infoList = [
     "Membership Type: Basic $10pw",
     "Duration: 12 Months",
