@@ -311,11 +311,12 @@ def gym_app():
 
     def calculate_button():
         '''
-        a collection of fuctions to calculate the total payment, lists varibles of options and executes functions
+         a list of if statements to check against the main infoList, if statements add or subtract based on the options inside the infoList
+         at the end a error check is done to make sure there are no duplicates and a regular payment sum is added to the infoList
         Args:
-        infoList
+         infoList
         Returns:
-        the regular payment data
+         the regular payment data
         '''
         global payment
         global reguarpayment
