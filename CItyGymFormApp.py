@@ -2,7 +2,7 @@ from guizero import *
 #/////////////////////////
 # change directory to folder containing the citygym logo provided with script
 import os
-os.chdir(f'C:/example/')
+os.chdir(f'C:/Temp')
 #////////////////////////
 def gym_app():
     '''
@@ -331,12 +331,15 @@ def gym_app():
         if 'Membership Type: Basic $10pw' in infoList:
             reguarpayment += 10
             baseMem += 10
+            listBox.append('Base membership: $' + str(baseMem))
         elif 'Membership Type: Regular $15pw' in infoList:
             reguarpayment += 15
             baseMem += 15
+            listBox.append('Base membership: $' + str(baseMem))
         elif 'Membership Type: Premium $20pw' in infoList:
             reguarpayment += 20
             baseMem += 20
+            listBox.append('Base membership: $' + str(baseMem))
 
         if 'Duration: 3 Months' in infoList:
             reguarpayment += 0
@@ -348,6 +351,7 @@ def gym_app():
         if 'Direct Debit: Yes' in infoList:
             disMem = 1 * baseMem/100
             reguarpayment -= disMem
+            listBox.append('Total Discount: $' + str(disMem))
         elif 'Direct Debit: No' in infoList:
             pass
 
@@ -359,6 +363,9 @@ def gym_app():
             reguarpayment += 20
         elif 'Extra(Online Fitness Videos): Yes' in infoList:
             reguarpayment += 2
+        else:
+            listBox.append('Extra cost: $' + str(reguarpayment))
+
 
         if 'Frequecncy of Payments: Weekly' in infoList:
             payment = reguarpayment
