@@ -1,5 +1,9 @@
 from guizero import *
-
+#/////////////////////////
+# change directory to folder containing the citygym logo provided with script
+import os
+os.chdir(f'C:/example/')
+#////////////////////////
 def gym_app():
     '''
      main guizero code block, sets up the app gui grid and calls/modifies/places the widgets
@@ -364,6 +368,8 @@ def gym_app():
         if [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1]:
             infoList.append('regular payments: ' + str(payment)) 
             listBox.append('regular payments: ' + str(payment))
+        else:
+            text20 = Text(app, text="please fill out all fields", grid=[1,30])
 
     cal_button = PushButton(app, text="Calculate Membership", command=calculate_button, grid=[1,26])
     cal_button.bg = but_hex
@@ -393,6 +399,7 @@ def gym_app():
             text18 = Text(app, text='Please fill and select all options before submitting', grid=[1,30])
             pass
         else:
+            #creates a new text file of new clients at the current directory 
             with open('membersdatasaved.txt', 'w') as f:
                 for values in infoList:
                     f.write(values + "\n")
