@@ -410,7 +410,7 @@ gym_app()
 
 #////////////DEBUG KIT//////////////////
 import os
-os.chdir(f'C:/Users/eastt/OneDrive/Documents/OpenPoly/502')
+os.chdir(f'C:/example')
 infoList = [
     "Membership Type: Basic $10pw",
     "Duration: 12 Months",
