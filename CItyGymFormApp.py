@@ -365,9 +365,9 @@ def gym_app():
         elif 'Frequecncy of Payments: Monthly' in infoList:
             payment = reguarpayment * 4
         
-        if [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1]:
-            infoList.append('regular payments: ' + str(payment)) 
-            listBox.append('regular payments: ' + str(payment))
+        if [s.find("regular payments: $") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1] or [s.find("regular payments:") for s in infoList] == [-1, -1, -1, -1, -1, -1, -1, -1, -1]:
+            infoList.append('regular payments: $' + str(payment)) 
+            listBox.append('regular payments: $' + str(payment))
         else:
             text20 = Text(app, text="please fill out all fields", grid=[1,30])
 
