@@ -3,7 +3,6 @@ from guizero import *
 # Function to show membership form
 def show_membership_form():
     info("Membership Form", "This is the membership form.")
-#////////////////////////////////////////
     def gym_app():
         '''
         main guizero code block, sets up the app gui grid and calls/modifies/places the widgets
@@ -387,7 +386,6 @@ def show_membership_form():
         listBox = ListBox(app, items=[], grid=[1,28], width=200, height=30)
         listBox.bg = but_hex_light
 
-
         def text_output_customer_info():
             '''
             outputs the new client infolist as a text file
@@ -417,7 +415,6 @@ def show_membership_form():
                     sys.exit()
         submit_button = PushButton(app, text="Submit and Exit", command=text_output_customer_info, grid=[1,29])
         submit_button.bg = but_hex_light
-#//////////////////////////////////////////////////////////
 
 # Function to show search form
 def show_search_form():
