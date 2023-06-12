@@ -1,4 +1,21 @@
+import sqlite3
 import PySimpleGUI as sg
+
+# Connect to the SQLite database
+conn = sqlite3.connect("gym_database.db")
+cursor = conn.cursor()
+
+# Function to insert new member data into the Members table
+def insert_member_data(data):
+    try:
+        cursor.execute("""
+            INSERT INTO Members (first_name, last_name, address, mobile_number, payment_frequency, extras, regular_payment)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, data)
+        conn.commit()
+        sg.popup("New member registered successfully!")
+    except sqlite3.Error as e:
+        sg.popup("Error occurred while registering the member:", str(e))
 
 def search_members(last_name):
     # Placeholder function - Replace with your actual implementation to search for members based on last name
@@ -57,6 +74,7 @@ def new_membership_form():
             window["-TOTAL_PAYMENT-"].update(f"Total Payment: ${total_payment}")
 
         elif event == "Submit":
+            # Get the form values
             first_name = values["-FIRST_NAME-"].strip()
             last_name = values["-LAST_NAME-"].strip()
             address = values["-ADDRESS-"].strip()
@@ -83,16 +101,11 @@ def new_membership_form():
                 sg.popup("Please enter a phone number.")
                 continue
 
-            # Handle form submission logic here
-            print(f"First Name: {first_name}")
-            print(f"Last Name: {last_name}")
-            print(f"Address: {address}")
-            print(f"Phone Number: {phone_number}")
-            print(f"Membership Type: {membership_type}")
-            print(f"Membership Duration: {duration}")
-            print("Selected Extras:")
-            for extra in selected_extras:
-                print(f"- {extra}")
+            # Create a tuple with the data to be inserted
+            member_data = (first_name, last_name, address, phone_number, membership_type, ", ".join(selected_extras), total_payment)
+
+            # Insert the member data into the database
+            insert_member_data(member_data)
 
             window.close()
             break
@@ -100,10 +113,29 @@ def new_membership_form():
             window.close()
             break
 
+    # Close the database connection
+    conn.close()
+
+def search_members(search_criteria):
+    try:
+        cursor.execute("""
+            SELECT * FROM Members
+            WHERE first_name LIKE ? OR last_name LIKE ? OR address LIKE ? OR mobile_number LIKE ?
+        """, search_criteria)
+        members_data = cursor.fetchall()
+        if len(members_data) == 0:
+            sg.popup("No records found for the search criteria.")
+        else:
+            # Display the retrieved information (format as per your choice)
+            for member in members_data:
+                sg.popup(f"Member ID: {member[0]}\nFirst Name: {member[1]}\nLast Name: {member[2]}\nAddress: {member[3]}\nMobile Number: {member[4]}\nPayment Frequency: {member[5]}\nExtras: {member[6]}\nRegular Payment: {member[7]}")
+    except sqlite3.Error as e:
+        sg.popup("Error occurred while searching members:", str(e))
+
 def search_members_form():
     layout = [
         [sg.Text("Search Members")],
-        [sg.Text("Last Name:"), sg.Input(key="-LAST_NAME-")],
+        [sg.Text("Last Name:"), sg.Input(key="-SEARCH_TEXT-")],
         [sg.Button("Search"), sg.Button("Cancel")],
         [sg.Text("Results:")],
         [sg.Output(size=(60, 10), key="-RESULTS-")]
@@ -114,20 +146,19 @@ def search_members_form():
     while True:
         event, values = window.read()
         if event == "Search":
-            last_name = values["-LAST_NAME-"].strip()
+            # Get the search criteria
+            search_text = values["-SEARCH_TEXT-"].strip()
 
-            if last_name:
-                members = search_members(last_name)
-                if members:
-                    print("Found Members:")
-                    for member in members:
-                        print(f"- {member}")
-                else:
-                    print("No members found.")
-
+            # Perform the search based on the criteria
+            search_criteria = (f"%{search_text}%", f"%{search_text}%", f"%{search_text}%", f"%{search_text}%")
+            search_members(search_criteria)
+            
         elif event == "Cancel" or event == sg.WIN_CLOSED:
             window.close()
             break
+
+# Close the database connection
+conn.close()
 
 def fitness_form():
     class_options = [
