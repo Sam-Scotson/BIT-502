@@ -54,6 +54,7 @@ def new_membership_form():
         [sg.Column([
             [sg.Checkbox(extra, key=f"-EXTRA-{i}-")] for i, extra in enumerate(extras_options)
         ], scrollable=True, size=(300, 100))],
+        [sg.Text("Payment Frequency:"), sg.Radio("Weekly", "FREQUENCY", default=True, key="-WEEKLY-"), sg.Radio("Monthly", "FREQUENCY", key="-MONTHLY-")],
         [sg.Button("Calculate"), sg.Button("Submit"), sg.Button("Cancel")],
         [sg.Text("Total Payment: $0", key="-TOTAL_PAYMENT-")]
     ]
@@ -64,11 +65,13 @@ def new_membership_form():
     while True:
         event, values = window.read()
         if event == "Calculate":
-            # Calculate the total payment based on selected options
+            # Calculate the total payment based on selected options and payment frequency
             total_payment = 0
             for i, extra in enumerate(extras_options):
                 if f"-EXTRA-{i}-" in values and values[f"-EXTRA-{i}-"]:
                     price = int(extra.split("$")[1].split("pw")[0])
+                    if values["-MONTHLY-"]:
+                        price *= 4  # Multiply by 4 for monthly payment frequency
                     total_payment += price
 
             window["-TOTAL_PAYMENT-"].update(f"Total Payment: ${total_payment}")
@@ -194,8 +197,8 @@ def fitness_form():
 
 def help_screen():
     layout = [
-        [sg.Text("Gym Membership Application Help", font=("Arial", 16))],
-        [sg.Text("Welcome to the Gym Membership Application!")],
+        [sg.Text("City Gym App Help", font=("Arial", 16))],
+        [sg.Text("Welcome to the City Gym Application!")],
         [sg.Text("This application allows you to perform various tasks related to gym membership management.")],
         [sg.Text("")],
         [sg.Text("Main Screen:")],
@@ -241,7 +244,7 @@ def main():
 
     layout = [
         [sg.Menu(menu_def, tearoff=False)],
-        [sg.Text("Welcome to the Gym Membership Application!", font=("Arial", 16))]
+        [sg.Text("Welcome to the City Gym App!", font=("Arial", 16))]
     ]
 
     window = sg.Window("Gym Membership Application", layout)
