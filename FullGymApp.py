@@ -8,7 +8,14 @@ cursor = conn.cursor()
 
 def insert_member_data(data):
     '''
-        function to insert new member data into the Members table inside the SQL DB using SQL syntax
+    Function to insert new member data into the Members table inside the SQL DB using SQL syntax
+    
+    Args:
+        data (tuple): The member data to be inserted into the database
+        
+    Raises:
+        sqlite3.Error: If an error occurs while inserting the data
+        
     '''
     try:
         cursor.execute("""
@@ -21,6 +28,16 @@ def insert_member_data(data):
         sg.popup("Error occurred while registering the member:", str(e))
 
 def search_members_by_last_name(last_name, member_list):
+    '''
+    Function to search for members based on last name
+    
+    Args:
+        last_name (str): The last name to search for
+        member_list (list): A list of members to search from
+        
+    Returns:
+        list: A list of matching members with the given last name
+    '''
     matching_members = []
     for member in member_list:
         if member["last_name"].lower() == last_name.lower():
@@ -44,10 +61,26 @@ while True:
         break
 
 def enroll_member(selected_class, last_name):
-    # Placeholder function - Replace with your actual implementation to enroll a member in a fitness class
-    print(f"Enrolling member with last name: {last_name} in class: {selected_class}")
+    '''
+    Function to enroll a member in a fitness class
+    
+    Args:
+        selected_class (str): The selected fitness class to enroll in
+        last_name (str): The last name of the member to enroll
+        
+    '''
+    if selected_class in fitness_classes and not fitness_classes[selected_class]["enrolled"]:
+        fitness_classes[selected_class]["enrolled"] = True
+        fitness_classes[selected_class]["enrolled_member"] = last_name
+        print(f"Enrolled member {last_name} in class {selected_class}.")
+    else:
+        print(f"Failed to enroll member {last_name} in class {selected_class}. Class is either not available or already full.")
 
 def new_membership_form():
+    '''
+    Function to create a new membership form window for user input
+    
+    '''
     membership_options = ["Basic: $10pw", "Regular: $15pw", "Premium: $20pw"]
     duration_options = ["3 Months", "12 Months", "24 Months"]
     extras_options = [
@@ -76,23 +109,20 @@ def new_membership_form():
 
     window = sg.Window("New Membership", layout)
 
-    # Event loop for the new membership form window
     while True:
         event, values = window.read()
         if event == "Calculate":
-            # Calculate the total payment based on selected options and payment frequency
             total_payment = 0
             for i, extra in enumerate(extras_options):
                 if f"-EXTRA-{i}-" in values and values[f"-EXTRA-{i}-"]:
                     price = int(extra.split("$")[1].split("pw")[0])
                     if values["-MONTHLY-"]:
-                        price *= 4  # Multiply by 4 for monthly payment frequency
+                        price *= 4  
                     total_payment += price
 
             window["-TOTAL_PAYMENT-"].update(f"Total Payment: ${total_payment}")
 
         elif event == "Submit":
-            # Get the form values
             first_name = values["-FIRST_NAME-"].strip()
             last_name = values["-LAST_NAME-"].strip()
             address = values["-ADDRESS-"].strip()
@@ -105,7 +135,6 @@ def new_membership_form():
                 if f"-EXTRA-{i}-" in values and checked
             ]
 
-            # Perform basic error checks
             if not first_name:
                 sg.popup("Please enter a first name.")
                 continue
@@ -119,10 +148,8 @@ def new_membership_form():
                 sg.popup("Please enter a phone number.")
                 continue
 
-            # Create a tuple with the data to be inserted
             member_data = (first_name, last_name, address, phone_number, membership_type, ", ".join(selected_extras), total_payment)
 
-            # Insert the member data into the database
             insert_member_data(member_data)
 
             window.close()
@@ -131,10 +158,16 @@ def new_membership_form():
             window.close()
             break
 
-    # Close the database connection
     conn.close()
 
 def search_members(search_criteria):
+    '''
+    Function to search for members based on search criteria
+    
+    Args:
+        search_criteria (tuple): A tuple containing the search criteria for first name, last name, address, and mobile number
+        
+    '''
     try:
         cursor.execute("""
             SELECT * FROM Members
@@ -144,13 +177,16 @@ def search_members(search_criteria):
         if len(members_data) == 0:
             sg.popup("No records found for the search criteria.")
         else:
-            # Display the retrieved information (format as per your choice)
             for member in members_data:
                 sg.popup(f"Member ID: {member[0]}\nFirst Name: {member[1]}\nLast Name: {member[2]}\nAddress: {member[3]}\nMobile Number: {member[4]}\nPayment Frequency: {member[5]}\nExtras: {member[6]}\nRegular Payment: {member[7]}")
     except sqlite3.Error as e:
         sg.popup("Error occurred while searching members:", str(e))
 
 def search_members_form():
+    '''
+    Function to create a search members form window for user input
+    
+    '''
     layout = [
         [sg.Text("Search Members")],
         [sg.Text("Last Name:"), sg.Input(key="-SEARCH_TEXT-")],
@@ -164,10 +200,8 @@ def search_members_form():
     while True:
         event, values = window.read()
         if event == "Search":
-            # Get the search criteria
             search_text = values["-SEARCH_TEXT-"].strip()
 
-            # Perform the search based on the criteria
             search_criteria = (f"%{search_text}%", f"%{search_text}%", f"%{search_text}%", f"%{search_text}%")
             search_members(search_criteria)
             
@@ -175,10 +209,13 @@ def search_members_form():
             window.close()
             break
 
-# Close the database connection
 conn.close()
 
 def fitness_form():
+    '''
+    Function to create a fitness form window for class enrollment
+    
+    '''
     class_options = [
         "Cardio, Thursday, 3pm-5pm",
         "Pilates, Friday, 9am-11am",
@@ -211,6 +248,10 @@ def fitness_form():
             break
 
 def help_screen():
+    '''
+    Function to create a help screen window for providing application instructions
+    
+    '''
     layout = [
         [sg.Text("City Gym App Help", font=("Arial", 16))],
         [sg.Text("Welcome to the City Gym Application!")],
@@ -249,8 +290,11 @@ def help_screen():
             window.close()
             break
 
-# Main Application Loop
 def main():
+    '''
+    Main function to create the main application window and handle events
+    
+    '''
     menu_def = [
         ["File", ["New Membership", "Search Members", "Exit"]],
         ["Fitness", ["Fitness Class Enrollment"]],
