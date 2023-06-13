@@ -2,7 +2,7 @@ import sqlite3
 import PySimpleGUI as sg
 
 #connection to the SQLite DB
-conn = sqlite3.connect("gym_database.db")
+conn = sqlite3.connect("City_Gym_DB.db")
 cursor = conn.cursor()
 
 
@@ -304,7 +304,7 @@ def main():
     layout = [
         [sg.Menu(menu_def, tearoff=False)],
         [sg.Text("Welcome to the City Gym App!", font=("Arial", 16))],
-        [sg.Image("path_to_image.png")]
+        [sg.Image("citygymlogo.png", size=(300, 200))]
     ]
 
     window = sg.Window("Gym Membership Application", layout)
