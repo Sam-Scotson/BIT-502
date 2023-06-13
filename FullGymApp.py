@@ -17,16 +17,26 @@ def insert_member_data(data):
     except sqlite3.Error as e:
         sg.popup("Error occurred while registering the member:", str(e))
 
-def search_members(last_name):
-    # Placeholder function - Replace with your actual implementation to search for members based on last name
-    members = []
-    if last_name.lower() == "smith":
-        members = ["John Smith", "Jane Smith", "David Smith"]
-    elif last_name.lower() == "jones":
-        members = ["Michael Jones", "Sarah Jones"]
-    elif last_name.lower() == "wilson":
-        members = ["Emily Wilson"]
-    return members
+def search_members_by_last_name(last_name, member_list):
+    
+    matching_members = ["John Smith", 'Jane Smith', 'Sam Jamesion', 'Hannah Wilson', 'Mille Dorrch', 'Jack Arrow']
+    for member in member_list:
+        if member["last_name"].lower() == last_name.lower():
+            matching_members.append(member)
+    return matching_members
+
+# Event loop for the main window
+while True:
+    event, values = window.read()
+    if event == "-SEARCH-":
+        last_name = values["-LAST_NAME-"]
+        if last_name:
+            # Call the search function with the last name and member list
+            matching_members = search_members_by_last_name(last_name, member_list)
+            # Update the member list element with the matching members
+            window["-MEMBER_LIST-"].update(matching_members)
+        else:
+            sg.popup("Please enter a last name.")
 
 def enroll_member(selected_class, last_name):
     # Placeholder function - Replace with your actual implementation to enroll a member in a fitness class
