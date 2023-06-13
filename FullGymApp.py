@@ -1,12 +1,15 @@
 import sqlite3
 import PySimpleGUI as sg
 
-# Connect to the SQLite database
+#connection to the SQLite DB
 conn = sqlite3.connect("gym_database.db")
 cursor = conn.cursor()
 
-# Function to insert new member data into the Members table
+
 def insert_member_data(data):
+    '''
+        function to insert new member data into the Members table inside the SQL DB using SQL syntax
+    '''
     try:
         cursor.execute("""
             INSERT INTO Members (first_name, last_name, address, mobile_number, payment_frequency, extras, regular_payment)
@@ -18,25 +21,27 @@ def insert_member_data(data):
         sg.popup("Error occurred while registering the member:", str(e))
 
 def search_members_by_last_name(last_name, member_list):
-    
-    matching_members = ["John Smith", 'Jane Smith', 'Sam Jamesion', 'Hannah Wilson', 'Mille Dorrch', 'Jack Arrow']
+    matching_members = []
     for member in member_list:
         if member["last_name"].lower() == last_name.lower():
             matching_members.append(member)
     return matching_members
 
-# Event loop for the main window
+window = sg.Window("Search Members", layout)
+member_list = ['John Smith', 'Jane Smith', 'Jack Arrow', 'Hannah Wilson', 'Mille Dorich', 'Sam Scotty']  
+
 while True:
     event, values = window.read()
     if event == "-SEARCH-":
         last_name = values["-LAST_NAME-"]
         if last_name:
-            # Call the search function with the last name and member list
             matching_members = search_members_by_last_name(last_name, member_list)
-            # Update the member list element with the matching members
             window["-MEMBER_LIST-"].update(matching_members)
         else:
             sg.popup("Please enter a last name.")
+    elif event == "Cancel" or event == sg.WIN_CLOSED:
+        window.close()
+        break
 
 def enroll_member(selected_class, last_name):
     # Placeholder function - Replace with your actual implementation to enroll a member in a fitness class
