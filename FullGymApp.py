@@ -244,7 +244,8 @@ def main():
 
     layout = [
         [sg.Menu(menu_def, tearoff=False)],
-        [sg.Text("Welcome to the City Gym App!", font=("Arial", 16))]
+        [sg.Text("Welcome to the City Gym App!", font=("Arial", 16))],
+        [sg.Image("path_to_image.png")]
     ]
 
     window = sg.Window("Gym Membership Application", layout)
