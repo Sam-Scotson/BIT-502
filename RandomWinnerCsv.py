@@ -8,7 +8,6 @@ def randomwin():
     """Works with .csv file format.
     Changes dir to file location, opens file into list, 
     and randomly samples a single name as the winner."""
-    global winner
     path = 'C:/example'  # Replace with your file path
     file = 'WinList.csv'
     pydir = path.replace('\\', '/')
